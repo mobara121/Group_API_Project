@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LiquorBarn.Data
 {
-    class SpecificLiquor
+    public class SpecificLiquor : Liquor
     {
+        public int MyProperty { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LiquorBarn.Data
 {
-    class Junction
+    public class Junction
     {
     }
 }
