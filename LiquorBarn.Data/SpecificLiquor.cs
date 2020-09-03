@@ -9,5 +9,6 @@ namespace LiquorBarn.Data
     public class SpecificLiquor : Liquor
     {
         public int MyProperty { get; set; }
+        //IgnoreTHis
     }
 }
