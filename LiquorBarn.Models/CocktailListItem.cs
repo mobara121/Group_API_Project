@@ -1,21 +1,17 @@
-﻿using System;
+﻿using LiquorBarn.Data;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LiquorBarn.Data
+namespace LiquorBarn.Models
 {
-    public class Cocktail
+    public class CocktailListItem
     {
-        [Key]
         public int Id { get; set; }
-
-        [Required]
         public string Name { get; set; }
 
-        [Required]
         public List<CocktailLiquor> LiquorsInCocktail { get; set; }
 
         public List<string> Ingredients { get; set; }

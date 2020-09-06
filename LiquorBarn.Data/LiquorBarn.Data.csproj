@@ -89,7 +89,7 @@
   <ItemGroup>
     <Compile Include="Cocktail.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Junction.cs" />
+    <Compile Include="CocktailLiquor.cs" />
     <Compile Include="Liquor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecificLiquor.cs" />
