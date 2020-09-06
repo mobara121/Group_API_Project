@@ -12,11 +12,12 @@ namespace LiquorBarn.Data
 		[Key]
 		public int Id { get; set; }
 
+		[Required]
 		public string Type { get; set; }
 
 		public string Subtype { get; set; }
 
-		//public List<Cocktail> ListOfCocktails { get; set; }
+		public List<CocktailLiquor> ListOfCocktails { get; set; }
 
 		public List<SpecificLiquor> SpecificLiquors { get; set; }
 	}

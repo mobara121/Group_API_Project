@@ -37,7 +37,7 @@ namespace LiquorBarn.Data
         public DbSet<Cocktail> Cocktails { get; set; }
         public DbSet<Liquor> Liquors { get; set; }
         public DbSet<SpecificLiquor> SpecificLiquors { get; set; }
-        public DbSet<Junction> Junctions { get; set; }
+        public DbSet<CocktailLiquor> CocktailLiquors { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
