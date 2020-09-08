@@ -15,8 +15,7 @@ namespace LiquorBarn.Data
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public List<CocktailLiquor> LiquorsInCocktail { get; set; }
+        public virtual ICollection<CocktailLiquor> LiquorsInCocktail { get; set; } = new List<CocktailLiquor>();
 
         public List<string> Ingredients { get; set; }
     }

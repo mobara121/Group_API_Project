@@ -17,8 +17,8 @@ namespace LiquorBarn.Data
 
 		public string Subtype { get; set; }
 
-		public List<CocktailLiquor> ListOfCocktails { get; set; }
+		public virtual ICollection<CocktailLiquor> ListOfCocktails { get; set; } = new List<CocktailLiquor>();
 
-		public List<SpecificLiquor> SpecificLiquors { get; set; }
+		public virtual List<SpecificLiquor> SpecificLiquors { get; set; }
 	}
 }
