@@ -12,41 +12,44 @@ namespace LiquorBarn.Services
 {
     public class CocktailService
     {
+        private readonly ApplicationDbContext _context = new ApplicationDbContext();
+
+        // Create
         public bool AddCocktail(CocktailCreate model)
         {
             var entity =
                 new Cocktail()
                 {
                     Name = model.Name,
-                    LiquorsInCocktail = model.LiquorsInCocktail,
                     Ingredients = model.Ingredients
                 };
 
-            using (var ctx = new ApplicationDbContext())
+            /*string[] separator = { ", " };
+            List<string> liquors = model.LiquorsInCocktail.Split(separator, StringSplitOptions.RemoveEmptyEntries).ToList();
+            foreach (string l in liquors)
             {
-                ctx.Cocktails.Add(entity);
-                return ctx.SaveChanges() == 1;
-            }
-        }
+                
+            }*/
 
+            _context.Cocktails.Add(entity);
+            return _context.SaveChanges() == 1;
+        }
+        
+        // Get All
         public IEnumerable<CocktailListItem> GetAll()
         {
-            using (var ctx = new ApplicationDbContext())
+            var cocktailEntities = _context.Cocktails.ToList();
+            var cocktailList = cocktailEntities.Select(c => new CocktailListItem
             {
-                var query =
-                    ctx
-                    .Cocktails
-                    .Select(
-                        e =>
-                        new CocktailListItem()
-                        {
-                            Id = e.Id,
-                            Name = e.Name,
-                            LiquorsInCocktail = e.LiquorsInCocktail,
-                            Ingredients = e.Ingredients,
-                        }
-                        );
-                return query.ToArray();
+                Id = c.Id,
+                Name = c.Name,
+                
+                Ingredients = c.Ingredients
+            });
+
+            return cocktailList;
         }
+
+        // Get By ID
     }
 }
