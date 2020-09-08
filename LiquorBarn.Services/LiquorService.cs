@@ -11,6 +11,8 @@ namespace LiquorBarn.Services
 {
     public class LiquorService
     {
+        private readonly ApplicationDbContext _context = new ApplicationDbContext();
+
         public bool AddLiquor(LiquorCreate model)
         {
             var entity =
@@ -20,11 +22,8 @@ namespace LiquorBarn.Services
                     Subtype = model.Subtype
                 };
 
-            using (var ctx = new ApplicationDbContext())
-            {
-                ctx.Liquors.Add(entity);
-                return ctx.SaveChanges() == 1;
-            }
+            _context.Liquors.Add(entity);
+            return _context.SaveChanges() == 1;
         }
     }
 }

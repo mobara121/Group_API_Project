@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CocktailCreate.cs" />
+    <Compile Include="CocktailLiquorDetail.cs" />
     <Compile Include="CocktailListItem.cs" />
     <Compile Include="LiquorCreate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

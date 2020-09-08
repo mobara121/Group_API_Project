@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CocktailLiquorService.cs" />
     <Compile Include="CocktailService.cs" />
     <Compile Include="LiquorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
