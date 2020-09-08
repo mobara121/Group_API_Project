@@ -47,6 +47,8 @@ namespace LiquorBarn.Services
                         }
                         );
                 return query.ToArray();
+
+            }
         }
     }
 }
