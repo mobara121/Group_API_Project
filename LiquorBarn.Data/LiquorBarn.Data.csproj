@@ -91,12 +91,22 @@
     <Compile Include="IdentityModels.cs" />
     <Compile Include="CocktailLiquor.cs" />
     <Compile Include="Liquor.cs" />
+    <Compile Include="Migrations\202009081508224_InitialMigration.cs" />
+    <Compile Include="Migrations\202009081508224_InitialMigration.designer.cs">
+      <DependentUpon>202009081508224_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecificLiquor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202009081508224_InitialMigration.resx">
+      <DependentUpon>202009081508224_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

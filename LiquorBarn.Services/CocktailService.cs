@@ -12,43 +12,94 @@ namespace LiquorBarn.Services
 {
     public class CocktailService
     {
+        private readonly ApplicationDbContext _context = new ApplicationDbContext();
+
+        // Create
         public bool AddCocktail(CocktailCreate model)
         {
             var entity =
                 new Cocktail()
                 {
                     Name = model.Name,
-                    LiquorsInCocktail = model.LiquorsInCocktail,
                     Ingredients = model.Ingredients
                 };
 
-            using (var ctx = new ApplicationDbContext())
-            {
-                ctx.Cocktails.Add(entity);
-                return ctx.SaveChanges() == 1;
-            }
-        }
+            int numOfChanges = 1;
 
-        public IEnumerable<CocktailListItem> GetAll()
-        {
-            using (var ctx = new ApplicationDbContext())
+            String[] separator = { ", " };
+            List<CocktailLiquor> cocktailLiquors = new List<CocktailLiquor>();
+            List<string> liquors = model.LiquorsInCocktail.Split(separator, StringSplitOptions.RemoveEmptyEntries).ToList();
+            foreach (string name in liquors)
             {
                 var query =
-                    ctx
-                    .Cocktails
-                    .Select(
-                        e =>
-                        new CocktailListItem()
-                        {
-                            Id = e.Id,
-                            Name = e.Name,
-                            LiquorsInCocktail = (List<CocktailLiquor>)e.LiquorsInCocktail,
-                            Ingredients = e.Ingredients,
-                        }
-                        );
-                return query.ToArray();
+                    _context
+                    .Liquors
+                    .Single(e => e.Type == name && e.Subtype == null || e.Subtype == name);
 
+                CocktailLiquor junction = new CocktailLiquor()
+                {
+                    Liquor = query,
+                    Cocktail = entity
+                };
+
+                _context.CocktailLiquors.Add(junction);
+                cocktailLiquors.Add(junction);
+                numOfChanges++;
             }
+
+            entity.LiquorsInCocktail = cocktailLiquors;
+            
+            _context.Cocktails.Add(entity);
+            return _context.SaveChanges() == numOfChanges;
+        }
+
+        // Get All
+        public IEnumerable<CocktailListItem> GetAll()
+        {
+            String[] separator = { ", " };
+            var cocktailEntities = _context.Cocktails.ToList();
+            var cocktailList = cocktailEntities.Select(c => new CocktailListItem
+            {
+                Id = c.Id,
+                Name = c.Name,
+                LiquorsInCocktail = ConvertFromCocktailLiquorToString(c.LiquorsInCocktail),
+                Ingredients = c.Ingredients.Split(separator, StringSplitOptions.RemoveEmptyEntries).ToList()
+            });
+
+            return cocktailList;
+        }
+
+        public List<string> ConvertFromCocktailLiquorToString(ICollection<CocktailLiquor> input)
+        {
+            List<string> finalResult = new List<string>();
+            foreach (CocktailLiquor i in input)
+            {
+                if (i.Liquor.Subtype != null)
+                {
+                    finalResult.Add(i.Liquor.Subtype);
+                }
+                else
+                {
+                    finalResult.Add(i.Liquor.Type);
+                }
+            }
+
+            return finalResult;
+        }
+
+        // Get By ID
+        public CocktailListItem GetByID(int id)
+        {
+            string[] separator = { ", " };
+            Cocktail cocktail = _context.Cocktails.Find(id);
+
+            return new CocktailListItem
+            {
+                Id = cocktail.Id,
+                Name = cocktail.Name,
+                LiquorsInCocktail = ConvertFromCocktailLiquorToString(cocktail.LiquorsInCocktail),
+                Ingredients = cocktail.Ingredients.Split(separator, StringSplitOptions.RemoveEmptyEntries).ToList()
+            };
         }
     }
 }
