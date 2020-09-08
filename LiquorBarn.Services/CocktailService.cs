@@ -24,32 +24,68 @@ namespace LiquorBarn.Services
                     Ingredients = model.Ingredients
                 };
 
-            /*string[] separator = { ", " };
-            List<string> liquors = model.LiquorsInCocktail.Split(separator, StringSplitOptions.RemoveEmptyEntries).ToList();
-            foreach (string l in liquors)
-            {
-                
-            }*/
+            int numOfChanges = 1;
 
+            String[] separator = { ", " };
+            List<CocktailLiquor> cocktailLiquors = new List<CocktailLiquor>();
+            List<string> liquors = model.LiquorsInCocktail.Split(separator, StringSplitOptions.RemoveEmptyEntries).ToList();
+            foreach (string name in liquors)
+            {
+                var query =
+                    _context
+                    .Liquors
+                    .Single(e => e.Type == name && e.Subtype == null || e.Subtype == name);
+
+                CocktailLiquor junction = new CocktailLiquor()
+                {
+                    Liquor = query,
+                    Cocktail = entity
+                };
+
+                _context.CocktailLiquors.Add(junction);
+                cocktailLiquors.Add(junction);
+                numOfChanges++;
+            }
+
+            entity.LiquorsInCocktail = cocktailLiquors;
+            
             _context.Cocktails.Add(entity);
-            return _context.SaveChanges() == 1;
+            return _context.SaveChanges() == numOfChanges;
         }
-        
+
         // Get All
         public IEnumerable<CocktailListItem> GetAll()
         {
+            String[] separator = { ", " };
             var cocktailEntities = _context.Cocktails.ToList();
             var cocktailList = cocktailEntities.Select(c => new CocktailListItem
             {
                 Id = c.Id,
                 Name = c.Name,
-                
-                Ingredients = c.Ingredients
+                LiquorsInCocktail = ConvertFromCocktailLiquorToString(c.LiquorsInCocktail),
+                Ingredients = c.Ingredients.Split(separator, StringSplitOptions.RemoveEmptyEntries).ToList()
             });
 
             return cocktailList;
         }
 
+        public List<string> ConvertFromCocktailLiquorToString(ICollection<CocktailLiquor> input)
+        {
+            List<string> finalResult = new List<string>();
+            foreach (CocktailLiquor i in input)
+            {
+                if (i.Liquor.Subtype != null)
+                {
+                    finalResult.Add(i.Liquor.Subtype);
+                }
+                else
+                {
+                    finalResult.Add(i.Liquor.Type);
+                }
+            }
+
+            return finalResult;
+        }
         // Get By ID
     }
 }
