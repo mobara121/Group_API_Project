@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LiquorBarn.Data
 {
-    public class SpecificLiquor : Liquor
+    public class SpecificLiquor
     {
 		[Key]
 		public int Id { get; set; }
