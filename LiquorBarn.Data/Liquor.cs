@@ -12,12 +12,13 @@ namespace LiquorBarn.Data
 		[Key]
 		public int Id { get; set; }
 
+		[Required]
 		public string Type { get; set; }
 
 		public string Subtype { get; set; }
 
-		//public List<Cocktail> ListOfCocktails { get; set; }
+		public virtual ICollection<CocktailLiquor> ListOfCocktails { get; set; } = new List<CocktailLiquor>();
 
-		public List<SpecificLiquor> SpecificLiquors { get; set; }
+		public virtual List<SpecificLiquor> SpecificLiquors { get; set; }
 	}
 }
