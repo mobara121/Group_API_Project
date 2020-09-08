@@ -86,6 +86,20 @@ namespace LiquorBarn.Services
 
             return finalResult;
         }
+
         // Get By ID
+        public CocktailListItem GetByID(int id)
+        {
+            string[] separator = { ", " };
+            Cocktail cocktail = _context.Cocktails.Find(id);
+
+            return new CocktailListItem
+            {
+                Id = cocktail.Id,
+                Name = cocktail.Name,
+                LiquorsInCocktail = ConvertFromCocktailLiquorToString(cocktail.LiquorsInCocktail),
+                Ingredients = cocktail.Ingredients.Split(separator, StringSplitOptions.RemoveEmptyEntries).ToList()
+            };
+        }
     }
 }
