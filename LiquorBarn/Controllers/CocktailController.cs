@@ -32,5 +32,14 @@ namespace LiquorBarn.Controllers
             var liquors = _service.GetAll();
             return Ok(liquors);
         }
+
+        [HttpGet]
+        public IHttpActionResult Get(int id)
+        {
+            var result = _service.GetByID(id);
+            if (result is null)
+                return NotFound();
+            return Ok(result);
+        }
     }
 }
