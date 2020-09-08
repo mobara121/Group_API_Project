@@ -14,5 +14,6 @@ namespace LiquorBarn.Models
         //public string LiquorsInCocktail { get; set; }
 
         public List<string> Ingredients { get; set; }
+        public ICollection<CocktailLiquor> LiquorsInCocktail { get; set; }
     }
 }

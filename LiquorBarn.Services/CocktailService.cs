@@ -42,7 +42,7 @@ namespace LiquorBarn.Services
                         {
                             Id = e.Id,
                             Name = e.Name,
-                            LiquorsInCocktail = e.LiquorsInCocktail,
+                            LiquorsInCocktail = (List<CocktailLiquor>)e.LiquorsInCocktail,
                             Ingredients = e.Ingredients,
                         }
                         );
