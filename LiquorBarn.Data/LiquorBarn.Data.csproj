@@ -91,13 +91,9 @@
     <Compile Include="IdentityModels.cs" />
     <Compile Include="CocktailLiquor.cs" />
     <Compile Include="Liquor.cs" />
-    <Compile Include="Migrations\202009081508224_InitialMigration.cs" />
-    <Compile Include="Migrations\202009081508224_InitialMigration.designer.cs">
-      <DependentUpon>202009081508224_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009082056146_AddedServiceGetAllLiquors.cs" />
-    <Compile Include="Migrations\202009082056146_AddedServiceGetAllLiquors.designer.cs">
-      <DependentUpon>202009082056146_AddedServiceGetAllLiquors.cs</DependentUpon>
+    <Compile Include="Migrations\202009091433496_InitialMigration.cs" />
+    <Compile Include="Migrations\202009091433496_InitialMigration.designer.cs">
+      <DependentUpon>202009091433496_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,11 +104,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009081508224_InitialMigration.resx">
-      <DependentUpon>202009081508224_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009082056146_AddedServiceGetAllLiquors.resx">
-      <DependentUpon>202009082056146_AddedServiceGetAllLiquors.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009091433496_InitialMigration.resx">
+      <DependentUpon>202009091433496_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,13 +7,13 @@ namespace LiquorBarn.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class AddedServiceGetAllLiquors : IMigrationMetadata
+    public sealed partial class InitialMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedServiceGetAllLiquors));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "202009082056146_AddedServiceGetAllLiquors"; }
+            get { return "202009091433496_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source
