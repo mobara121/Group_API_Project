@@ -23,6 +23,9 @@ namespace LiquorBarn.Controllers
             if (_service.GetByName(model.Name) != null)
                 return Conflict();
 
+            if (!_service.IsLiquorInDatabase(model.LiquorsInCocktail))
+                return InternalServerError(new SystemException("Liquor is not in database."));
+
             if (!_service.AddCocktail(model))
                 return InternalServerError();
 
@@ -48,7 +51,7 @@ namespace LiquorBarn.Controllers
         }
 
         [HttpGet]
-        [Route("api/Cocktail/{name}")]
+        [Route("api/Cocktail/ByName/{name}")]
         public IHttpActionResult Get([FromUri]string name)
         {
             var result = _service.GetByName(name);
@@ -68,8 +71,15 @@ namespace LiquorBarn.Controllers
             if (_service.GetByID(id) is null)
                 return NotFound();
 
+            if (!_service.IsLiquorInDatabase(model.LiquorsInCocktail))
+                return InternalServerError(new SystemException("Liquor is not in database."));
+
+            if (_service.ChangesWereNotMade(id, model))
+                return Ok("No changes were made.");
+
             if (!_service.UpdateByID(id, model))
                 return InternalServerError();
+
 
             return Ok();
         }
