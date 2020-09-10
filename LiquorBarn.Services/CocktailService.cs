@@ -2,6 +2,7 @@
 using LiquorBarn.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -28,6 +29,9 @@ namespace LiquorBarn.Services
             int numOfChanges = 1;
 
             List<CocktailLiquor> cocktailLiquors = ConvertFromStringToCocktailLiquor(model, entity);
+            foreach (CocktailLiquor i in cocktailLiquors)
+                _context.CocktailLiquors.Add(i);
+
             numOfChanges += cocktailLiquors.Count();
 
             entity.LiquorsInCocktail = cocktailLiquors;
@@ -40,7 +44,6 @@ namespace LiquorBarn.Services
         //-- Get All
         public IEnumerable<CocktailListItem> GetAll()
         {
-            //String[] separator = { ", " };
             var cocktailEntities = _context.Cocktails.ToList();
             var cocktailList = cocktailEntities.Select(c => new CocktailListItem
             {
@@ -56,7 +59,6 @@ namespace LiquorBarn.Services
         //-- Get By ID
         public CocktailListItem GetByID(int id)
         {
-            //string[] separator = { ", " };
             Cocktail cocktail = _context.Cocktails.Find(id);
 
             if (cocktail is null)
@@ -74,7 +76,7 @@ namespace LiquorBarn.Services
         //-- Get By Name
         public CocktailListItem GetByName(string name)
         {
-            Cocktail cocktail = _context.Cocktails.Single(e => e.Name.ToLower() == name.ToLower());
+            Cocktail cocktail = _context.Cocktails.SingleOrDefault(e => e.Name.ToLower() == name.ToLower());
 
             if (cocktail is null)
                 return null;
@@ -96,19 +98,20 @@ namespace LiquorBarn.Services
 
             int numOfChanges = 0;
 
-            if (!(updatedCocktail.Name == cocktail.Name && updatedCocktail.Ingredients == cocktail.Ingredients))
-                numOfChanges = 1;
-
             cocktail.Name = updatedCocktail.Name;
             cocktail.Ingredients = updatedCocktail.Ingredients;
 
             numOfChanges += RemoveCocktailLiquor(id);
 
             List<CocktailLiquor> cocktailLiquors = ConvertFromStringToCocktailLiquor(updatedCocktail, cocktail);
+            foreach (CocktailLiquor i in cocktailLiquors)
+                _context.CocktailLiquors.Add(i);
+
             numOfChanges += cocktailLiquors.Count();
 
             cocktail.LiquorsInCocktail = cocktailLiquors;
-            return _context.SaveChanges() == numOfChanges;
+            int tempTest = _context.SaveChanges();
+            return tempTest == numOfChanges;
         }
 
 
@@ -150,15 +153,14 @@ namespace LiquorBarn.Services
         // helper
         public List<CocktailLiquor> ConvertFromStringToCocktailLiquor(CocktailCreate cocktailCreate, Cocktail cocktail)
         {
-            //String[] separator = { ", " };
             List<CocktailLiquor> cocktailLiquors = new List<CocktailLiquor>();
             List<string> liquors = cocktailCreate.LiquorsInCocktail.Split(_separator, StringSplitOptions.RemoveEmptyEntries).ToList();
             foreach (string name in liquors)
             {
                 var query =
-                    _context
-                    .Liquors
-                    .Single(e => e.Type == name && e.Subtype == null || e.Subtype == name);
+                _context
+                .Liquors
+                .Single(e => e.Type == name && e.Subtype == null || e.Subtype == name);
 
                 CocktailLiquor junction = new CocktailLiquor()
                 {
@@ -166,11 +168,35 @@ namespace LiquorBarn.Services
                     Cocktail = cocktail
                 };
 
-                _context.CocktailLiquors.Add(junction);
                 cocktailLiquors.Add(junction);
-
             }
             return cocktailLiquors;
+        }
+
+        // helper
+        public bool IsLiquorInDatabase(string list)
+        {
+            List<string> liquors = list.Split(_separator, StringSplitOptions.RemoveEmptyEntries).ToList();
+            foreach (string name in liquors)
+            {
+                var query =
+                    _context
+                    .Liquors
+                    .SingleOrDefault(e => e.Type == name && e.Subtype == null || e.Subtype == name);
+                if (query is null)
+                    return false;
+            }
+            return true;
+        }
+
+        // helper
+        public bool ChangesWereNotMade(int id, CocktailCreate updatedCocktail)
+        {
+            Cocktail cocktail = _context.Cocktails.Find(id);
+
+            return updatedCocktail.Name == cocktail.Name
+                && string.Join(",", ConvertFromCocktailLiquorToString(cocktail.LiquorsInCocktail).ToList()) == string.Join(",", updatedCocktail.LiquorsInCocktail.Split(_separator, StringSplitOptions.RemoveEmptyEntries).ToList())
+                && updatedCocktail.Ingredients.ToLower() == cocktail.Ingredients.ToLower();
         }
 
         // helper
