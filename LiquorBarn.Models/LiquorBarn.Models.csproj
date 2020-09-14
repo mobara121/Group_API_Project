@@ -57,14 +57,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CocktailCreate.cs" />
-    <Compile Include="CocktailLiquorDetail.cs" />
-    <Compile Include="CocktailListItem.cs" />
-    <Compile Include="LiquorCreate.cs" />
-    <Compile Include="LiquorDetail.cs" />
-    <Compile Include="LiquorListItem.cs" />
+    <Compile Include="Cocktail\CocktailCreate.cs" />
+    <Compile Include="Junctions\CocktailLiquorDetail.cs" />
+    <Compile Include="Cocktail\CocktailListItem.cs" />
+    <Compile Include="Liquor\LiquorCreate.cs" />
+    <Compile Include="Liquor\LiquorDetail.cs" />
+    <Compile Include="Liquor\LiquorListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserCocktailDetail.cs" />
+    <Compile Include="Junctions\UserCocktailDetail.cs" />
+    <Compile Include="SpecificLiquor\SpecificLiquorCreate.cs" />
+    <Compile Include="SpecificLiquor\SpecificLiquorListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -76,6 +78,7 @@
       <Name>LiquorBarn.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
