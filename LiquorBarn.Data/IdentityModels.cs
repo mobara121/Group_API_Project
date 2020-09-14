@@ -1,7 +1,9 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -20,6 +22,8 @@ namespace LiquorBarn.Data
             // Add custom user claims here
             return userIdentity;
         }
+
+        public virtual List<UserCocktail> SavedCocktails { get; set; } = new List<UserCocktail>();
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -38,6 +42,7 @@ namespace LiquorBarn.Data
         public DbSet<Liquor> Liquors { get; set; }
         public DbSet<SpecificLiquor> SpecificLiquors { get; set; }
         public DbSet<CocktailLiquor> CocktailLiquors { get; set; }
+        public DbSet<UserCocktail> UserCocktails { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
