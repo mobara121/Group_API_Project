@@ -110,8 +110,7 @@ namespace LiquorBarn.Services
             numOfChanges += cocktailLiquors.Count();
 
             cocktail.LiquorsInCocktail = cocktailLiquors;
-            int tempTest = _context.SaveChanges();
-            return tempTest == numOfChanges;
+            return _context.SaveChanges() == numOfChanges;
         }
 
 
@@ -124,8 +123,7 @@ namespace LiquorBarn.Services
 
             numOfChanges += RemoveCocktailLiquor(id);
 
-            int tempTest = _context.SaveChanges();
-            return tempTest == numOfChanges;
+            return _context.SaveChanges() == numOfChanges;
         }
 
 
