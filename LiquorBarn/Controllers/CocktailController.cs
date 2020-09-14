@@ -77,6 +77,8 @@ namespace LiquorBarn.Controllers
             if (_service.ChangesWereNotMade(id, model))
                 return Ok("No changes were made.");
 
+            //Need to check conflict with "GetByName"??
+
             if (!_service.UpdateByID(id, model))
                 return InternalServerError();
 

@@ -63,14 +63,20 @@ namespace LiquorBarn.Services
         //-- Get All By Brand
         public List<SpecificLiquorListItem> GetByBrand(string brand)
         {
+           
             List<SpecificLiquorListItem> specificLiquorList =
-                _context.SpecificLiquors.Where(e => e.Brand == brand).Select(s => new SpecificLiquorListItem
-                {
-                    Id = s.Id,
-                    Liquor = ConvertFromLiquorToString(s.Liquor),
+                _context.SpecificLiquors.Where(e => e.Brand.ToLower() == brand.ToLower()).Select(s => new SpecificLiquorListItem
+                {                    
+                    Id = s.Id,                   
                     Brand = s.Brand,
                     CountryOfOrigin = s.CountryOfOrigin
                 }).ToList();
+
+            foreach (SpecificLiquorListItem item in specificLiquorList)
+            {
+                SpecificLiquor specificLiquor = _context.SpecificLiquors.Find(item.Id);
+                item.Liquor = ConvertFromLiquorToString(specificLiquor.Liquor);
+            }
 
             return specificLiquorList;
         }
@@ -79,13 +85,18 @@ namespace LiquorBarn.Services
         public List<SpecificLiquorListItem> GetByCountry(string country)
         {
             List<SpecificLiquorListItem> specificLiquorList =
-                _context.SpecificLiquors.Where(e => e.CountryOfOrigin == country).Select(s => new SpecificLiquorListItem
+                _context.SpecificLiquors.Where(e => e.CountryOfOrigin.ToLower() == country.ToLower()).Select(s => new SpecificLiquorListItem
                 {
-                    Id = s.Id,
-                    Liquor = ConvertFromLiquorToString(s.Liquor),
+                    Id = s.Id,                   
                     Brand = s.Brand,
                     CountryOfOrigin = s.CountryOfOrigin
                 }).ToList();
+
+            foreach (SpecificLiquorListItem item in specificLiquorList)
+            {
+                SpecificLiquor specificLiquor = _context.SpecificLiquors.Find(item.Id);
+                item.Liquor = ConvertFromLiquorToString(specificLiquor.Liquor);
+            }
 
             return specificLiquorList;
         }
@@ -123,6 +134,35 @@ namespace LiquorBarn.Services
             if (liquor.Subtype is null)
                 return liquor.Type;
             return liquor.Subtype;
+        }
+        // helper
+        public bool IsSpecificLiquorInDatabase(SpecificLiquorCreate model)
+        {
+            var liquor = ConvertFromStringToLiquor(model.Liquor);
+
+            SpecificLiquor query = _context.SpecificLiquors.SingleOrDefault(q => q.Brand == model.Brand && q.CountryOfOrigin == model.CountryOfOrigin && q.Liquor.Type == liquor.Type && q.Liquor.Subtype == liquor.Subtype);
+            
+            if (query != null)
+                return true;
+
+            return false;
+        }
+        public bool IsLiquorInDatabase(SpecificLiquorCreate model)
+        {
+            var liquor = ConvertFromStringToLiquor(model.Liquor);
+            //var query = _context.Liquors.SingleOrDefault(q => q.Type == liquor.Type && q.Subtype == liquor.Subtype);
+            
+
+            if (liquor != null)
+                return true;
+
+            return false;
+        }
+        public bool NoChangesWereMade(int id, SpecificLiquorCreate model)
+        {
+            SpecificLiquor liquor = _context.SpecificLiquors.Find(id);
+
+            return liquor.Brand == model.Brand && liquor.CountryOfOrigin == model.CountryOfOrigin && ConvertFromLiquorToString(liquor.Liquor) == model.Liquor;            
         }
     }
 }
