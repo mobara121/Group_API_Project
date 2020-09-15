@@ -24,6 +24,7 @@ namespace LiquorBarn.Data
         }
 
         public virtual List<UserCocktail> SavedCocktails { get; set; } = new List<UserCocktail>();
+        public virtual List<CustomCocktail> CustomCocktails { get; set; } = new List<CustomCocktail>();
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -43,6 +44,8 @@ namespace LiquorBarn.Data
         public DbSet<SpecificLiquor> SpecificLiquors { get; set; }
         public DbSet<CocktailLiquor> CocktailLiquors { get; set; }
         public DbSet<UserCocktail> UserCocktails { get; set; }
+        public DbSet<CustomCocktail> CustomCocktails { get; set; }
+        public DbSet<CustomSpecific> CustomSpecifics { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -208,6 +208,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CocktailController.cs" />
+    <Compile Include="Controllers\CustomCocktailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LiquorController.cs" />
     <Compile Include="Controllers\PreferenceController.cs" />

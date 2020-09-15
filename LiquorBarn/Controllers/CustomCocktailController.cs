@@ -1,32 +1,38 @@
 ﻿using LiquorBarn.Models;
 using LiquorBarn.Services;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
-using System.Web.Http.Results;
+using System.Web.Razor.Parser;
+using System.Xml.XPath;
 
 namespace LiquorBarn.Controllers
 {
-    public class CocktailController : ApiController
+    public class CustomCocktailController : ApiController
     {
-        private readonly CocktailService _service = new CocktailService();
+        private CustomCocktailService CreateCustomCocktailService()
+        {
+            return new CustomCocktailService(User.Identity.GetUserId());
+        }
 
         [HttpPost]
         public IHttpActionResult Post(CocktailCreate model)
         {
+            var service = CreateCustomCocktailService();
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (_service.GetByName(model.Name) != null)
+            if (service.DoesCocktailAlreadyExist(model))
                 return Conflict();
 
-            if (!_service.IsLiquorInDatabase(model.LiquorsInCocktail))
-                return InternalServerError(new SystemException("Liquor is not in database."));
+            if (!service.IsLiquorInDatabase(model.LiquorsInCocktail))
+                return InternalServerError(new SystemException("Liquor is not in the database."));
 
-            if (!_service.AddCocktail(model))
+            if (!service.Create(model))
                 return InternalServerError();
 
             return Ok();
@@ -35,14 +41,18 @@ namespace LiquorBarn.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            var cocktails = _service.GetAll();
-            return Ok(cocktails);
+            var service = CreateCustomCocktailService();
+
+            var customCocktails = service.GetAll();
+            return Ok(customCocktails);
         }
 
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            var result = _service.GetByID(id);
+            var service = CreateCustomCocktailService();
+
+            var result = service.GetById(id);
 
             if (result is null)
                 return NotFound();
@@ -51,10 +61,12 @@ namespace LiquorBarn.Controllers
         }
 
         [HttpGet]
-        [Route("api/Cocktail/ByName/{name}")]
+        [Route("api/CustomCocktail/ByName/{name}")]
         public IHttpActionResult Get([FromUri]string name)
         {
-            var result = _service.GetByName(name.Replace('_', ' '));
+            var service = CreateCustomCocktailService();
+
+            var result = service.GetByName(name.Replace('_', ' '));
 
             if (result is null)
                 return NotFound();
@@ -65,22 +77,24 @@ namespace LiquorBarn.Controllers
         [HttpPut]
         public IHttpActionResult Put([FromUri]int id, [FromBody]CocktailCreate model)
         {
+            var service = CreateCustomCocktailService();
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (_service.GetByID(id) is null)
+            if (service.GetById(id) is null)
                 return NotFound();
 
-            if (!_service.IsLiquorInDatabase(model.LiquorsInCocktail))
+            if (!service.IsLiquorInDatabase(model.LiquorsInCocktail))
                 return InternalServerError(new SystemException("Liquor is not in database."));
 
-            if (_service.ChangesWereNotMade(id, model))
+            if (service.ChangesWereNotMade(id, model))
                 return Ok("No changes were made.");
 
-            if (_service.DoesCocktailAlreadyExist(model))
+            if (service.DoesCocktailAlreadyExist(model))
                 return Conflict();
 
-            if (!_service.UpdateByID(id, model))
+            if (!service.Update(id, model))
                 return InternalServerError();
 
             return Ok();
@@ -89,10 +103,12 @@ namespace LiquorBarn.Controllers
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
-            if (_service.GetByID(id) is null)
+            var service = CreateCustomCocktailService();
+
+            if (service.GetById(id) is null)
                 return NotFound();
 
-            if (!_service.DeleteCocktail(id))
+            if (!service.Delete(id))
                 return InternalServerError();
 
             return Ok();

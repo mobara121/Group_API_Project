@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace LiquorBarn.Models
 {
-    public class LiquorCreate
+    public class SpecificLiquorCountry
     {
         [Required]
-        public string Type { get; set; }
-        public string Subtype { get; set; }
+        public string CountryOfOrigin { get; set; }
     }
 }
