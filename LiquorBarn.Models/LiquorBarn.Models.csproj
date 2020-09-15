@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cocktail\CocktailCreate.cs" />
+    <Compile Include="Junctions\CustomSpecificDetail.cs" />
     <Compile Include="Junctions\CocktailLiquorDetail.cs" />
     <Compile Include="Cocktail\CocktailListItem.cs" />
     <Compile Include="Liquor\LiquorCreate.cs" />

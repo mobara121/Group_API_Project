@@ -18,6 +18,7 @@ namespace LiquorBarn.Services
         {
             var entity = new SpecificLiquor
             {
+                Name = model.Name,
                 Liquor = ConvertFromStringToLiquor(model.Liquor),
                 Brand = model.Brand,
                 CountryOfOrigin = model.CountryOfOrigin
@@ -35,6 +36,7 @@ namespace LiquorBarn.Services
             var specificLiquorList = specificLiquorEntities.Select(s => new SpecificLiquorListItem
             {
                 Id = s.Id,
+                Name = s.Name,
                 Liquor = ConvertFromLiquorToString(s.Liquor),
                 Brand = s.Brand,
                 CountryOfOrigin = s.CountryOfOrigin
@@ -54,6 +56,7 @@ namespace LiquorBarn.Services
             return new SpecificLiquorListItem
             {
                 Id = entity.Id,
+                Name = entity.Name,
                 Liquor = ConvertFromLiquorToString(entity.Liquor),
                 Brand = entity.Brand,
                 CountryOfOrigin = entity.CountryOfOrigin
@@ -67,7 +70,8 @@ namespace LiquorBarn.Services
             List<SpecificLiquorListItem> specificLiquorList =
                 _context.SpecificLiquors.Where(e => e.Brand.ToLower() == brand.ToLower()).Select(s => new SpecificLiquorListItem
                 {                    
-                    Id = s.Id,                   
+                    Id = s.Id,
+                    Name = s.Name,
                     Brand = s.Brand,
                     CountryOfOrigin = s.CountryOfOrigin
                 }).ToList();
@@ -87,7 +91,8 @@ namespace LiquorBarn.Services
             List<SpecificLiquorListItem> specificLiquorList =
                 _context.SpecificLiquors.Where(e => e.CountryOfOrigin.ToLower() == country.ToLower()).Select(s => new SpecificLiquorListItem
                 {
-                    Id = s.Id,                   
+                    Id = s.Id,
+                    Name = s.Name,
                     Brand = s.Brand,
                     CountryOfOrigin = s.CountryOfOrigin
                 }).ToList();
@@ -107,6 +112,7 @@ namespace LiquorBarn.Services
         {
             SpecificLiquor specificLiquor = _context.SpecificLiquors.Find(id);
 
+            specificLiquor.Name = updatedSpecificLiquor.Name;
             specificLiquor.Liquor = ConvertFromStringToLiquor(updatedSpecificLiquor.Liquor);
             specificLiquor.Brand = updatedSpecificLiquor.Brand;
             specificLiquor.CountryOfOrigin = updatedSpecificLiquor.CountryOfOrigin;
@@ -140,7 +146,7 @@ namespace LiquorBarn.Services
         {
             var liquor = ConvertFromStringToLiquor(model.Liquor);
 
-            SpecificLiquor query = _context.SpecificLiquors.SingleOrDefault(q => q.Brand == model.Brand && q.CountryOfOrigin == model.CountryOfOrigin && q.Liquor.Type == liquor.Type && q.Liquor.Subtype == liquor.Subtype);
+            SpecificLiquor query = _context.SpecificLiquors.SingleOrDefault(q => q.Name == model.Name && q.Brand == model.Brand && q.CountryOfOrigin == model.CountryOfOrigin && q.Liquor.Type == liquor.Type && q.Liquor.Subtype == liquor.Subtype);
             
             if (query != null)
                 return true;
@@ -150,8 +156,6 @@ namespace LiquorBarn.Services
         public bool IsLiquorInDatabase(SpecificLiquorCreate model)
         {
             var liquor = ConvertFromStringToLiquor(model.Liquor);
-            //var query = _context.Liquors.SingleOrDefault(q => q.Type == liquor.Type && q.Subtype == liquor.Subtype);
-            
 
             if (liquor != null)
                 return true;
@@ -162,7 +166,7 @@ namespace LiquorBarn.Services
         {
             SpecificLiquor liquor = _context.SpecificLiquors.Find(id);
 
-            return liquor.Brand == model.Brand && liquor.CountryOfOrigin == model.CountryOfOrigin && ConvertFromLiquorToString(liquor.Liquor) == model.Liquor;            
+            return liquor.Name == model.Name && liquor.Brand == model.Brand && liquor.CountryOfOrigin == model.CountryOfOrigin && ConvertFromLiquorToString(liquor.Liquor) == model.Liquor;            
         }
     }
 }

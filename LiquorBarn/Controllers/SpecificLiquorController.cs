@@ -90,7 +90,6 @@ namespace LiquorBarn.Controllers
             if (_service.IsSpecificLiquorInDatabase(model))
                 return Conflict();
 
-
             if (!_service.Update(id, model))
                 return InternalServerError();
 

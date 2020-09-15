@@ -97,6 +97,8 @@ namespace LiquorBarn.Services
             Cocktail cocktail = _context.Cocktails.Find(id);
 
             int numOfChanges = 0;
+            if (!(cocktail.Name == updatedCocktail.Name && cocktail.Ingredients == updatedCocktail.Ingredients))
+                numOfChanges = 1;
 
             cocktail.Name = updatedCocktail.Name;
             cocktail.Ingredients = updatedCocktail.Ingredients;
@@ -213,6 +215,17 @@ namespace LiquorBarn.Services
                 numOfChanges++;
             }
             return numOfChanges;
+        }
+
+        // helper
+        public bool DoesCocktailAlreadyExist(CocktailCreate model)
+        {
+            CocktailListItem cocktailListItem = GetByName(model.Name);
+
+            if (cocktailListItem is null)
+                return false;
+
+            return model.LiquorsInCocktail == string.Join(", ", cocktailListItem.LiquorsInCocktail) && model.Ingredients == string.Join(", ", cocktailListItem.Ingredients);
         }
     }
 }

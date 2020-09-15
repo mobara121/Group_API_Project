@@ -91,7 +91,14 @@ namespace LiquorBarn.Services
                     Id = l.Id
                 }).ToList();
 
-            return query.Count() != 0;
+            List<LiquorListItem> queryTwo =
+                _context.CustomSpecifics.Where(e => e.LiquorId == id).Select(
+                    l => new LiquorListItem
+                    {
+                        Id = l.Id
+                    }).ToList();
+
+            return query.Count() != 0 || queryTwo.Count != 0;
         }
 
         // helper

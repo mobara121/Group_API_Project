@@ -88,6 +88,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cocktail.cs" />
+    <Compile Include="CustomCocktail.cs" />
+    <Compile Include="CustomSpecific.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="CocktailLiquor.cs" />
     <Compile Include="Liquor.cs" />
@@ -98,6 +100,10 @@
     <Compile Include="Migrations\202009141412169_SecondMigration.cs" />
     <Compile Include="Migrations\202009141412169_SecondMigration.designer.cs">
       <DependentUpon>202009141412169_SecondMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009151446338_ThirdMigration.cs" />
+    <Compile Include="Migrations\202009151446338_ThirdMigration.designer.cs">
+      <DependentUpon>202009151446338_ThirdMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009141412169_SecondMigration.resx">
       <DependentUpon>202009141412169_SecondMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009151446338_ThirdMigration.resx">
+      <DependentUpon>202009151446338_ThirdMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

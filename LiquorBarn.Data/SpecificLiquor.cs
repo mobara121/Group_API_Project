@@ -13,6 +13,9 @@ namespace LiquorBarn.Data
 		[Key]
 		public int Id { get; set; }
 
+		[Required]
+		public string Name { get; set; }
+
 		[ForeignKey(nameof(Liquor))]
 		public int LiquorId { get; set; }
 
@@ -21,5 +24,7 @@ namespace LiquorBarn.Data
 		public string Brand { get; set; }
 
 		public string CountryOfOrigin { get; set; }
+
+		public virtual ICollection<CustomSpecific> ListOfCustomCocktails { get; set; } = new List<CustomSpecific>();
 	}
 }
