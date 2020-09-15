@@ -66,6 +66,8 @@
     <Compile Include="Liquor\LiquorListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Junctions\UserCocktailDetail.cs" />
+    <Compile Include="SpecificLiquor\SpecificLiquorBrand.cs" />
+    <Compile Include="SpecificLiquor\SpecificLiquorCountry.cs" />
     <Compile Include="SpecificLiquor\SpecificLiquorCreate.cs" />
     <Compile Include="SpecificLiquor\SpecificLiquorListItem.cs" />
   </ItemGroup>

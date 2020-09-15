@@ -50,7 +50,7 @@ namespace LiquorBarn.Controllers
         
         [HttpGet]
         [Route("api/SpecificLiquor/ByBrand")]
-        public IHttpActionResult GetByBrand(SpecificLiquorCreate model)
+        public IHttpActionResult GetByBrand(SpecificLiquorBrand model)
         {
             var result = _service.GetByBrand(model.Brand);
 
@@ -62,7 +62,7 @@ namespace LiquorBarn.Controllers
 
         [HttpGet]
         [Route("api/SpecificLiquor/ByCountry")]
-        public IHttpActionResult GetByCountry(SpecificLiquorCreate model)
+        public IHttpActionResult GetByCountry(SpecificLiquorCountry model)
         {
             var result = _service.GetByCountry(model.CountryOfOrigin);
 
@@ -95,11 +95,15 @@ namespace LiquorBarn.Controllers
 
             return Ok();
         }
+
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
             if (_service.GetById(id) is null)
                 return NotFound();
+
+            if (_service.IsSpecificLiquorInAnyCocktails(id))
+                return Content<string>(System.Net.HttpStatusCode.Forbidden, "WARNING: This liquor is currently being used in cocktails. Delete or edit those cocktails first if you want to proceed.");
 
             if (!_service.Delete(id))
                 return InternalServerError();

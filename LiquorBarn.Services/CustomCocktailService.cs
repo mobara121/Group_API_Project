@@ -51,7 +51,7 @@ namespace LiquorBarn.Services
         public IEnumerable<CocktailListItem> GetAll()
         {
             var customCocktailEntities = _context.CustomCocktails.ToList();
-            var customCocktailList = customCocktailEntities.Select(c => new CocktailListItem
+            var customCocktailList = customCocktailEntities.Where(e => e.UserId == _user.Id).Select(c => new CocktailListItem
             {
                 Id = c.Id,
                 Name = c.Name,
@@ -70,21 +70,7 @@ namespace LiquorBarn.Services
             if (customCocktail is null)
                 return null;
 
-            return new CocktailListItem
-            {
-                Id = customCocktail.Id,
-                Name = customCocktail.Name,
-                LiquorsInCocktail = ConvertFromCustomSpecificToString(customCocktail.LiquorsInCocktail),
-                Ingredients = customCocktail.Ingredients.Split(_separator, StringSplitOptions.RemoveEmptyEntries).ToList()
-            };
-        }
-
-        //-- Get By Name
-        public CocktailListItem GetByName(string name)
-        {
-            CustomCocktail customCocktail = _context.CustomCocktails.SingleOrDefault(e => e.Name.ToLower() == name.ToLower());
-
-            if (customCocktail is null)
+            if (customCocktail.UserId != _user.Id)
                 return null;
 
             return new CocktailListItem
@@ -96,6 +82,28 @@ namespace LiquorBarn.Services
             };
         }
 
+        //-- Get By Name
+        public List<CocktailListItem> GetByName(string name)
+        {
+            List<CocktailListItem> customCocktails = _context.CustomCocktails.Where(e => e.Name.ToLower() == name.ToLower() && e.UserId == _user.Id).Select(e => new CocktailListItem
+            {
+                Id = e.Id,
+                Name = e.Name,
+            }).ToList();
+
+            if (customCocktails.Count == 0)
+                return null;
+
+            foreach (CocktailListItem item in customCocktails)
+            {
+                CustomCocktail customCocktail = _context.CustomCocktails.Find(item.Id);
+                item.LiquorsInCocktail = ConvertFromCustomSpecificToString(customCocktail.LiquorsInCocktail);
+                item.Ingredients = customCocktail.Ingredients.Split(_separator, StringSplitOptions.RemoveEmptyEntries).ToList();
+            }
+
+            return customCocktails;
+        }
+
 
         //-- Update
         public bool Update(int id, CocktailCreate updatedCustomCocktail)
@@ -103,6 +111,8 @@ namespace LiquorBarn.Services
             CustomCocktail customCocktail = _context.CustomCocktails.Find(id);
 
             int numOfChanges = 0;
+            if (!(customCocktail.Name == updatedCustomCocktail.Name && customCocktail.Ingredients == updatedCustomCocktail.Ingredients))
+                numOfChanges = 1;
 
             customCocktail.Name = updatedCustomCocktail.Name;
             customCocktail.Ingredients = updatedCustomCocktail.Ingredients;
@@ -229,12 +239,20 @@ namespace LiquorBarn.Services
         // helper
         public bool DoesCocktailAlreadyExist(CocktailCreate model)
         {
-            CocktailListItem cocktailListItem = GetByName(model.Name);
+            List<CocktailListItem> cocktailListItems = GetByName(model.Name);
 
-            if (cocktailListItem is null)
+            if (cocktailListItems is null)
                 return false;
 
-            return model.LiquorsInCocktail == string.Join(", ", cocktailListItem.LiquorsInCocktail) && model.Ingredients == string.Join(", ", cocktailListItem.Ingredients);
+            bool check = false;
+
+            foreach (CocktailListItem item in cocktailListItems)
+            {
+                if (model.LiquorsInCocktail == string.Join(", ", item.LiquorsInCocktail) && model.Ingredients == string.Join(", ", item.Ingredients))
+                    check = true;
+            }
+
+            return check;
         }
     }
 }

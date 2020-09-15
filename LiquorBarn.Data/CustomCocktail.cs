@@ -18,7 +18,7 @@ namespace LiquorBarn.Data
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
         public string Name { get; set; }
-        public List<CustomSpecific> LiquorsInCocktail { get; set; }
+        public virtual ICollection<CustomSpecific> LiquorsInCocktail { get; set; } = new List<CustomSpecific>();
         public string Ingredients { get; set; }
     }
 }

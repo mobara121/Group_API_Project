@@ -54,7 +54,7 @@ namespace LiquorBarn.Controllers
         [Route("api/Cocktail/ByName/{name}")]
         public IHttpActionResult Get([FromUri]string name)
         {
-            var result = _service.GetByName(name);
+            var result = _service.GetByName(name.Replace('_', ' '));
 
             if (result is null)
                 return NotFound();

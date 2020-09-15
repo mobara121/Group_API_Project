@@ -26,10 +26,10 @@ namespace LiquorBarn.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (service.GetByName(model.Name) != null)
+            if (service.DoesCocktailAlreadyExist(model))
                 return Conflict();
 
-            if (service.IsLiquorInDatabase(model.LiquorsInCocktail))
+            if (!service.IsLiquorInDatabase(model.LiquorsInCocktail))
                 return InternalServerError(new SystemException("Liquor is not in the database."));
 
             if (!service.Create(model))
@@ -66,7 +66,7 @@ namespace LiquorBarn.Controllers
         {
             var service = CreateCustomCocktailService();
 
-            var result = service.GetByName(name);
+            var result = service.GetByName(name.Replace('_', ' '));
 
             if (result is null)
                 return NotFound();

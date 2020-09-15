@@ -56,6 +56,9 @@ namespace LiquorBarn.Controllers
             if (_service.ChangesWereNotMade(id, model))
                 return Ok("No changes were made.");
 
+            if (_service.IsLiquorInDatabase(model))
+                return Conflict();
+
             if (!_service.UpdateLiquor(id, model))
                 return InternalServerError();
 

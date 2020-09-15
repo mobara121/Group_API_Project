@@ -141,6 +141,19 @@ namespace LiquorBarn.Services
                 return liquor.Type;
             return liquor.Subtype;
         }
+
+        // helper
+        public bool IsSpecificLiquorInAnyCocktails(int id)
+        {
+            List<SpecificLiquorListItem> query =
+                _context.CustomSpecifics.Where(e => e.SpecificLiquorId == id).Select(s => new SpecificLiquorListItem
+                {
+                    Id = s.Id
+                }).ToList();
+
+            return query.Count() != 0;
+        }
+
         // helper
         public bool IsSpecificLiquorInDatabase(SpecificLiquorCreate model)
         {
@@ -153,6 +166,8 @@ namespace LiquorBarn.Services
 
             return false;
         }
+
+        // helper
         public bool IsLiquorInDatabase(SpecificLiquorCreate model)
         {
             var liquor = ConvertFromStringToLiquor(model.Liquor);
@@ -162,6 +177,8 @@ namespace LiquorBarn.Services
 
             return false;
         }
+
+        // helper
         public bool NoChangesWereMade(int id, SpecificLiquorCreate model)
         {
             SpecificLiquor liquor = _context.SpecificLiquors.Find(id);
