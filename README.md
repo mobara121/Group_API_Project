@@ -55,14 +55,23 @@
         
 ### SpecificLiquor
 	
-        GET: /api/SpecificLiquor/ByBrand      =>  Calls a list of specific liquors filtering by brand
-	GET: /api/SpecificLiquor/ByCountry    => Calls a list of SL’s by filtering by country
-	POST: /api/SpecificLiquor             => Creates an SL 
-	GET: /api/SpecificLiquor              => Calls a list of all SL’s
-	GET: /api/SpecificLiquor/{id}         => Calls one SL by its individual ID via the URI
-	PUT: /api/SpecificLiquor/{id}         => Edits one SL targeting its ID and new content form body
-	DELETE: /api/SpecificLiquor/{id}  => Deletes one SL
+        GET:  /api/SpecificLiquor/ByBrand      =>  Calls a list of specific liquors filtering by brand
+	GET:  /api/SpecificLiquor/ByCountry    => Calls a list of SL’s by filtering by country
+	POST: /api/SpecificLiquor              => Creates an SL 
+	GET:  /api/SpecificLiquor              => Calls a list of all SL’s
+	GET:  /api/SpecificLiquor/{id}         => Calls one SL by its individual ID via the URI
+	PUT:  /api/SpecificLiquor/{id}         => Edits one SL targeting its ID and new content form body
+	DELETE: /api/SpecificLiquor/{id}       => Deletes one SL
 
 ## Source Link
 	https://stackoverflow.com/questions/10007351/entity-framework-code-first-addorupdate-method-insert-duplicate-values
-	
+	https://stackoverflow.com/questions/13376720/how-can-an-object-property-be-aware-of-its-parent-item
+	https://www.techopedia.com/definition/7272/foreign-key
+	https://entityframework.net/knowledge-base/44747032/no-context-type-was-found-in-the-assembly-when-running-code-first-migration
+	https://www.youtube.com/watch?v=GblxFZpR10w
+	https://docs.microsoft.com/en-us/dotnet/api/system.string.split?view=netcore-3.1
+
+
+
+
+
