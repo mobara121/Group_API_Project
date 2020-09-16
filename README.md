@@ -19,10 +19,7 @@
     - Store Cocktail with stored liqour data  
     - Create custom cocktail with favorite ingredients
     - Search stored cocktail recipies
-    - Update and delete the datas above
-    
-###  Admins:
-    - Create, update or delete Daily Lotto users and lottery locations   
+    - Update and delete the datas above  
 
 
 ## App Endpoints
