@@ -61,4 +61,4 @@
 	      GET: /api/SpecificLiquor              => Calls a list of all SL’s
 	      GET: /api/SpecificLiquor/{id}         => Calls one SL by its individual ID via the URI
 	      PUT: /api/SpecificLiquor/{id}         => Edits one SL targeting its ID and new content form body
-	DELETE: /api/SpecificLiquor/{id}  => Deletes one SL
+	      DELETE: /api/SpecificLiquor/{id}  => Deletes one SL
