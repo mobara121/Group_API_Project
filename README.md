@@ -1,5 +1,5 @@
 # Group_API_Project --Liquor Barn--
-<a href='https://www.freepik.com/vectors/menu'>Menu vector created by macrovector - www.freepik.com</a>
+![Cocktail](https://user-images.githubusercontent.com/63912277/93373892-f9fef180-f823-11ea-972e-a39862361537.PNG)
   
 ### The app for Fnacy Cocktail Creaters! The Liquor Barn will store cocktail recipes, present a list of cocktails that contain a particular spirit, and create new and unique cocktails.
 好きなお酒からお好みのカクテルレシピを作れるこのアプリを活用して、アルコールと良い関係を築きましょう。
@@ -55,3 +55,13 @@
         GET:  /api/CustomCocktail/ByName/{name} => Pulls specific cocktail recipe(s) to view by its Name
         PUT:  /api/CustomCocktail/{id}          => Allows the user to update/fix a cocktail recipe that was stored in the DB
         DELETE:/api/CustomCocktail/{id}         => Allows the user to delete a cocktail recipe that is on the DB
+        
+### SpecificLiquor
+	
+        GET: /api/SpecificLiquor/ByBrand      =>  Calls a list of specific liquors filtering by brand
+	      GET: /api/SpecificLiquor/ByCountry    => Calls a list of SL’s by filtering by country
+	      POST: /api/SpecificLiquor             => Creates an SL 
+	      GET: /api/SpecificLiquor              => Calls a list of all SL’s
+	      GET: /api/SpecificLiquor/{id}         => Calls one SL by its individual ID via the URI
+	      PUT: /api/SpecificLiquor/{id}         => Edits one SL targeting its ID and new content form body
+	DELETE: /api/SpecificLiquor/{id}  => Deletes one SL
