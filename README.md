@@ -38,11 +38,12 @@
 
 ###  Cocktail: 
   
-        POST: /api/Cocktail            => Allows a user to post a new cocktail with ingredients and data-stored liquor info
-        GET:  /api/Cocktail            => Shows all the cocktail recipes on DB
-        GET:  /api/Cocktail/{id}       => Pulls specific cocktail recipe(s) to view by ID
-        PUT:  /api/Cocktail/{id}       => Allows the user to update/fix a cocktail recipe that was stored in the DB
-        DELETE: /api/Cocktail/{id}     => Allows the user to delete a cocktail recipe that is on the DB
+        POST: /api/Cocktail               => Allows a user to post a new cocktail with ingredients and data-stored liquor info
+        GET:  /api/Cocktail               => Shows all the cocktail recipes on DB
+        GET:  /api/Cocktail/{id}          => Pulls specific cocktail recipe(s) to view by ID
+	GET:  /api/Cocktail/ByName/{name} => Pulls specific cocktail recipe(s) to view by its Name
+        PUT:  /api/Cocktail/{id}          => Allows the user to update/fix a cocktail recipe that was stored in the DB
+        DELETE: /api/Cocktail/{id}        => Allows the user to delete a cocktail recipe that is on the DB
         
 ###  CustomCocktail: 
   
@@ -55,15 +56,22 @@
         
 ### SpecificLiquor
 	
-        GET:  /api/SpecificLiquor/ByBrand      =>  Calls a list of specific liquors filtering by brand
-	GET:  /api/SpecificLiquor/ByCountry    => Calls a list of SL’s by filtering by country
-	POST: /api/SpecificLiquor              => Creates an SL 
+        POST: /api/SpecificLiquor              => Creates an SL
+	GET:  /api/SpecificLiquor/ByBrand      => Calls a list of specific liquors filtering by brand
+	GET:  /api/SpecificLiquor/ByCountry    => Calls a list of SL’s by filtering by country 
 	GET:  /api/SpecificLiquor              => Calls a list of all SL’s
 	GET:  /api/SpecificLiquor/{id}         => Calls one SL by its individual ID via the URI
-	PUT:  /api/SpecificLiquor/{id}         => Edits one SL targeting its ID and new content form body
+	PUT:  /api/SpecificLiquor/{id}         => Edits one SL targeting its ID and new content from body
 	DELETE: /api/SpecificLiquor/{id}       => Deletes one SL
+	
+###  Preference: 
+  
+        POST:   /api/Preference/{id}    => Save a cocktail to user's preference list
+        GET:    /api/Preference         => Gets preference list
+        DELETE: /api/Preference/{id}    => Remove a cocktail from user's preference list
+        DELETE: /api/Preference         => Clear user's preference list
 
-## Source Link
+## Resource Link
 	https://stackoverflow.com/questions/10007351/entity-framework-code-first-addorupdate-method-insert-duplicate-values
 	https://stackoverflow.com/questions/13376720/how-can-an-object-property-be-aware-of-its-parent-item
 	https://www.techopedia.com/definition/7272/foreign-key
