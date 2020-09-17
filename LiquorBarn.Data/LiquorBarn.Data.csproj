@@ -105,6 +105,10 @@
     <Compile Include="Migrations\202009151446338_ThirdMigration.designer.cs">
       <DependentUpon>202009151446338_ThirdMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009162029192_JustToSee.cs" />
+    <Compile Include="Migrations\202009162029192_JustToSee.designer.cs">
+      <DependentUpon>202009162029192_JustToSee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecificLiquor.cs" />
@@ -123,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009151446338_ThirdMigration.resx">
       <DependentUpon>202009151446338_ThirdMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009162029192_JustToSee.resx">
+      <DependentUpon>202009162029192_JustToSee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
