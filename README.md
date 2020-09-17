@@ -3,7 +3,9 @@
   
 ### The app for Fancy Cocktail Creators! The Liquor Barn will store cocktail recipes, present a list of cocktails that contain a particular spirit, and create new and unique cocktails.
 好きなお酒からお好みのカクテルレシピを作れるこのアプリを活用して、アルコールと良い関係を築きましょう。
+
 التطبيق الالكتروني الذي يخزن و يحفظ المشوبات المسكرة التي المستخدمين ممكن يريدون أن يشربوها
+
 Una aplicación para archivar recetas de cócteles, enseñar listas de cócteles que contienen un licor particular, y crear cócteles nuevos y únicos.
 
 ## Created by Another Team 2:
