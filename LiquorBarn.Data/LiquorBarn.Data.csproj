@@ -88,15 +88,49 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cocktail.cs" />
+    <Compile Include="CustomCocktail.cs" />
+    <Compile Include="CustomSpecific.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Junction.cs" />
+    <Compile Include="CocktailLiquor.cs" />
     <Compile Include="Liquor.cs" />
+    <Compile Include="Migrations\202009091433496_InitialMigration.cs" />
+    <Compile Include="Migrations\202009091433496_InitialMigration.designer.cs">
+      <DependentUpon>202009091433496_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009141412169_SecondMigration.cs" />
+    <Compile Include="Migrations\202009141412169_SecondMigration.designer.cs">
+      <DependentUpon>202009141412169_SecondMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009151446338_ThirdMigration.cs" />
+    <Compile Include="Migrations\202009151446338_ThirdMigration.designer.cs">
+      <DependentUpon>202009151446338_ThirdMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009162029192_JustToSee.cs" />
+    <Compile Include="Migrations\202009162029192_JustToSee.designer.cs">
+      <DependentUpon>202009162029192_JustToSee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecificLiquor.cs" />
+    <Compile Include="UserCocktail.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202009091433496_InitialMigration.resx">
+      <DependentUpon>202009091433496_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009141412169_SecondMigration.resx">
+      <DependentUpon>202009141412169_SecondMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009151446338_ThirdMigration.resx">
+      <DependentUpon>202009151446338_ThirdMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009162029192_JustToSee.resx">
+      <DependentUpon>202009162029192_JustToSee.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

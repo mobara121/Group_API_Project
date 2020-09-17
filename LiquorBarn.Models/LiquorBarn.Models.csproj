@@ -57,12 +57,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cocktail\CocktailCreate.cs" />
+    <Compile Include="Junctions\CustomSpecificDetail.cs" />
+    <Compile Include="Junctions\CocktailLiquorDetail.cs" />
+    <Compile Include="Cocktail\CocktailListItem.cs" />
+    <Compile Include="Liquor\LiquorCreate.cs" />
+    <Compile Include="Liquor\LiquorDetail.cs" />
+    <Compile Include="Liquor\LiquorListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Junctions\UserCocktailDetail.cs" />
+    <Compile Include="SpecificLiquor\SpecificLiquorBrand.cs" />
+    <Compile Include="SpecificLiquor\SpecificLiquorCountry.cs" />
+    <Compile Include="SpecificLiquor\SpecificLiquorCreate.cs" />
+    <Compile Include="SpecificLiquor\SpecificLiquorListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LiquorBarn.Data\LiquorBarn.Data.csproj">
+      <Project>{89a56205-d446-43a1-b7a3-7613b85b7fa2}</Project>
+      <Name>LiquorBarn.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
